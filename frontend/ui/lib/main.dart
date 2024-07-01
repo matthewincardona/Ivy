@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:localstorage/localstorage.dart';
+
 import 'screens/home_screen.dart';
 import 'screens/add_task_screen.dart';
 import 'providers/task_provider.dart';
 
-void main() {
+late final ValueNotifier<TaskProvider> notifier;
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initLocalStorage();
+
+  notifier = ValueNotifier(TaskProvider.parse(localStorage.getItem('')))
+
   runApp(MyTodoApp());
 }
 
